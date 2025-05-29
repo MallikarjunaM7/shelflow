@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../essentials/Navbar';
 
+import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+
 function ProductTable() {
   const [products, setProducts] = useState([]);
   const [shopid] = useState(localStorage.getItem("shopid"));
@@ -33,69 +46,42 @@ function ProductTable() {
         <h2 className="text-center text-2xl font-semibold text-gray-800 mb-6">
           More Sold Product
         </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse rounded-lg overflow-hidden">
-            <thead className="bg-green-600 text-white">
-              <tr>
-                {[
-                  "Product Name",
-                  "Total Sold",
-                  "Price",
-                  "Quantity",
-                  "Revenue Generated",
-                  "Product Threshold",
-                ].map((header) => (
-                  <th
-                    key={header}
-                    className="text-left px-6 py-4 font-bold"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {products.length > 0 ? (
-                products.map((product, idx) => (
-                  <tr
-                    key={idx}
-                    className={`${
-                      idx % 2 === 0 ? "bg-gray-50" : "bg-gray-100"
-                    } hover:bg-green-50 transition-colors`}
-                  >
-                    <td className="px-6 py-3 font-semibold text-gray-800 border-b border-gray-200">
-                      {product.productname}
-                    </td>
-                    <td className="px-6 py-3 text-gray-600 border-b border-gray-200">
-                      {product.total_sold}
-                    </td>
-                    <td className="px-6 py-3 text-gray-600 border-b border-gray-200">
-                      ₹{product.price}
-                    </td>
-                    <td className="px-6 py-3 text-gray-600 border-b border-gray-200">
-                      {product.quantity}
-                    </td>
-                    <td className="px-6 py-3 text-gray-600 border-b border-gray-200">
-                      ₹{product.revenue_generated}
-                    </td>
-                    <td className="px-6 py-3 text-gray-600 border-b border-gray-200">
-                      {product.productthreshold}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="6"
-                    className="text-center px-6 py-4 text-gray-500"
-                  >
-                    No products found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        {products.length > 0 ? (
+          <Bar
+            data={{
+              labels: products.map((p) => p.productname),
+              datasets: [
+                {
+                  label: 'Revenue Generated (₹)',
+                  data: products.map((p) => p.revenue_generated),
+                  backgroundColor: '#10b981', // Tailwind green-500 color
+                  borderRadius: 6,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: { position: 'top' },
+                title: {
+                  display: true,
+                  text: 'Revenue per Product',
+                  font: { size: 18 },
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    callback: (value) => `₹${value}`,
+                  },
+                },
+              },
+            }}
+          />
+        ) : (
+          <p className="text-center text-gray-500">No products to display.</p>
+        )}
       </div>
     </>
   );
