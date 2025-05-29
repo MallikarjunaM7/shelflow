@@ -18,6 +18,7 @@
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.511.0",
     "mongoose": "^8.8.1",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.10",
