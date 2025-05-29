@@ -1,44 +1,80 @@
-import React,{useState,useEffect} from "react";
-import'/public/Navbar.css'
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"></link>
-function Navbar(){
-    const navigate=useNavigate();
-    const [isOpen, setIsOpen] = useState(false);
 
-        const toggleSidebar = () => {
-            setIsOpen(!isOpen);
-        };
-      
-        const closeSidebar = () => {
-            setIsOpen(false);
-        }
-        const gotoShop=() =>{
-            navigate("/Productdetail")
-        }
+function Navbar() {
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-        
-        return (
-          <div>
-            <nav className="navbar">
-                <div className="logo">
-                   <a href="/home"> <img src="/public/seld.png" alt="logo" /></a>
-                </div>
-                <div className="hamburger" onClick={toggleSidebar}>
-                    
-                </div>
-                <ul className={`nav-links ${isOpen ? "active" : ""}`}>
-                    <span className="close-btn"onClick={closeSidebar} >✕</span>
-                    <li><a  onClick={gotoShop} >Shop</a></li>
-                    <li><a href="/Notification"  >Notifications</a></li>
-                    <li><a href="/Contactus" >Contact</a></li>
-                    <li><a href="/soldproducts" >Stats</a></li>
-                    <li><a  >Suppliers</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                   
-                </ul>
-            </nav>
-            </div>
-    )
+  const toggleSidebar = () => setIsOpen(!isOpen);
+  const closeSidebar = () => setIsOpen(false);
+
+  const gotoShop = () => navigate("/Productdetail");
+
+  return (
+    <nav className="flex justify-between items-center bg-white px-4 py-3 text-gray-500 font-poppins shadow-md relative z-20">
+      {/* Logo */}
+      <div className="logo">
+        <a href="/home">
+          <img
+            src="/public/seld.png"
+            alt="logo"
+            className="max-w-[150px] transition-transform duration-300 ease-out hover:scale-105"
+          />
+        </a>
+      </div>
+
+      {/* Hamburger Icon (Mobile) */}
+      <div className="hamburger md:hidden text-2xl cursor-pointer text-[#4C1F7A]" onClick={toggleSidebar}>
+        ☰
+      </div>
+
+      {/* Navigation Links */}
+      <ul
+        className={`fixed top-0 right-0 h-full w-[250px] bg-white flex flex-col items-center justify-center gap-6 text-lg font-semibold transition-transform duration-300 shadow-lg md:static md:flex-row md:h-auto md:w-auto md:shadow-none md:gap-7 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        } md:translate-x-0`}
+      >
+        {/* Close Button (Mobile Only) */}
+        <span
+          className="absolute top-4 right-4 text-2xl text-purple-600 cursor-pointer md:hidden"
+          onClick={closeSidebar}
+        >
+          ✕
+        </span>
+
+        <li className="hover:scale-105 transition">
+          <button onClick={gotoShop} className="hover:text-gray-800">
+            Shop
+          </button>
+        </li>
+        <li className="hover:scale-105 transition">
+          <a href="/Notification" className="hover:text-gray-800">
+            Notifications
+          </a>
+        </li>
+        <li className="hover:scale-105 transition">
+          <a href="/Contactus" className="hover:text-gray-800">
+            Contact
+          </a>
+        </li>
+        <li className="hover:scale-105 transition">
+          <a href="/soldproducts" className="hover:text-gray-800">
+            Stats
+          </a>
+        </li>
+        <li className="hover:scale-105 transition">
+          <a href="#" className="hover:text-gray-800">
+            Suppliers
+          </a>
+        </li>
+        <li className="hover:scale-105 transition">
+          <a href="/logout" className="hover:text-gray-800">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+  );
 }
-export default Navbar
+
+export default Navbar;
