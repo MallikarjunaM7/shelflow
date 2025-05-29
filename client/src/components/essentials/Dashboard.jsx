@@ -15,7 +15,31 @@ function Dashboard(){
     return(
         <>
         <div>
-        
+         <section className="bg-gradient-to-r from-green-500 to-indigo-600 text-white py-20 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+        {/* Text content */}
+        <div className="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
+            Build Modern Web Experiences
+          </h1>
+          <p className="text-lg sm:text-xl mb-6">
+            Design and develop fast, responsive, and beautiful websites with React and Tailwind CSS.
+          </p>
+          <button className="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-100 transition">
+            Get Started
+          </button>
+        </div>
+
+        {/* Image or illustration */}
+        <div className="md:w-1/2 flex justify-center">
+          <img
+            src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
+            alt="Demo"
+            className="rounded-lg shadow-xl w-full max-w-md"
+          />
+        </div>
+      </div>
+    </section>
         <section className="hero">
         <div >
         <h1 className="typing">
